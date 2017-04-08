@@ -1,0 +1,20 @@
+db:
+  image: postgres:9.6
+  volumes:
+    - ./db:/var/lib/postgresql/data
+  environment:
+    - MYSQL_ROOT_PASSWORD=secret
+    - MYSQL_DATABASE=janus
+  restart: always
+
+web:
+  build: .
+  command: uwsgi --ini uwsgi.ini
+  volumes:
+    - ./main:/code
+    - ./static:/static
+  expose:
+    - "8099"
+  links:
+    - "db:db"
+  restart: always
