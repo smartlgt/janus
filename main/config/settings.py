@@ -135,7 +135,7 @@ STATIC_ROOT = "/static/"
 OAUTH2_PROVIDER_APPLICATION_MODEL = 'oauth2_provider.Application'
 
 OAUTH2_PROVIDER = {
-    'OAUTH2_VALIDATOR_CLASS': 'janus.oauth2_validators.OAuth2Validator',
+    #'OAUTH2_VALIDATOR_CLASS': 'janus.oauth2_validators.OAuth2Validator',
 }
 
 CORS_ORIGIN_ALLOW_ALL = False

@@ -5,7 +5,7 @@ from oauth2_provider.models import Application
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    group = models.ManyToManyField('ProfileGroup')
+    group = models.ManyToManyField('ProfileGroup', blank=True)
 
     def get_groups(self):
         ret = ""
@@ -32,15 +32,21 @@ class ApplicationGroup(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(default="")
 
+    def __str__(self):
+        return self.name
+
 
 class ProfilePermission(models.Model):
+    class Meta:
+        unique_together = (('profile', 'application', ), )
+
     """ override all permissions for a single application """
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     application = models.ForeignKey(Application, on_delete=models.CASCADE)
     # this defines if the oauth module issues an authentication token
     can_authenticate = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    groups = models.ManyToManyField(ApplicationGroup)
+    groups = models.ManyToManyField(ApplicationGroup, blank=True)
 
 
 class GroupPermission(models.Model):

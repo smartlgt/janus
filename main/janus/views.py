@@ -22,3 +22,6 @@ class ProfileView(ProtectedResourceView):
 
 def index(request):
     return HttpResponse("hello from janus")
+
+def not_authorized(request):
+    return HttpResponse("Sorry, you are not authorized to access this application. Contact an admin if you think this is a mistake.")
