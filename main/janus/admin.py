@@ -40,7 +40,7 @@ admin.site.register(Profile, ProfileAdmin)
 
 
 class ProfileGroupAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'description')
+    list_display = ('id', 'name', 'description', 'default')
     list_display_links = ('id', 'name')
     search_fields = ('id', 'name')
 

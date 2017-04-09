@@ -50,6 +50,8 @@ MIDDLEWARE = [
 
     'corsheaders.middleware.CorsMiddleware',
 
+    'janus.middleware.ProfileMiddleware',
+
     #'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     #'oauth2_provider.middleware.OAuth2TokenMiddleware',
 ]
