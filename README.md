@@ -11,7 +11,7 @@ For this project exists a variety of ready to use OAuth2 plugins for commonly us
 ### Docker
 - You can use the provided `docker-complese.yml`
 - !change the `MYSQL_ROOT_PASSWORD`
-- copy the `main/janus/local_settings.py.dist` to `main/janus/local_settings.py`
+- copy the `main/config/local_settings.py.dist` to `main/config/local_settings.py`
 - !change the `local_settings.py` config to match your docker settings
 - start the project `docker-compose up -d`
 - execute the migrations `./manage.sh migrate`
