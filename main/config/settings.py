@@ -30,11 +30,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     'django_python3_ldap',
 
     'oauth2_provider',
     'corsheaders',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 
     'janus',
 ]
@@ -57,6 +62,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
+
+
+SITE_ID = 1
 
 TEMPLATES = [
     {
@@ -172,6 +180,13 @@ AUTHENTICATION_BACKENDS = (
 )
 
 
+
+######### Allauth config
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
 try:
     from .local_settings import *

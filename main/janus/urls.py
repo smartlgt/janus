@@ -8,12 +8,12 @@ from janus.oauth2.views import AuthorizationView
 
 urlpatterns = [
     # use custom view, to enforce the user authenticate permissions
-    url(r'^o/authorize/$', AuthorizationView.as_view(), name="authorize"),
+    url(r'^o/authorize/?$', AuthorizationView.as_view(), name="authorize"),
 
-    url(r'^o/token/$', TokenView.as_view(), name="token"),
-    url(r'^o/revoke_token/$', RevokeTokenView.as_view(), name="revoke-token"),
+    url(r'^o/token/?$', TokenView.as_view(), name="token"),
+    url(r'^o/revoke_token/?$', RevokeTokenView.as_view(), name="revoke-token"),
 
-    url(r'^o/profile/$', views.ProfileView.as_view(), name="profile"),
+    url(r'^o/profile/?$', views.ProfileView.as_view(), name="profile"),
     url(r'^o/not_authorized/$', views.not_authorized, name="not-authorized"),
 
     url('^accounts/', include('django.contrib.auth.urls')),

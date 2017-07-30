@@ -1,3 +1,4 @@
+import allauth
 from django.shortcuts import redirect
 from oauth2_provider.models import get_application_model
 from oauth2_provider.views import AuthorizationView
