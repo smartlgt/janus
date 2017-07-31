@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'corsheaders',
 
     'janus',
+
+    'raven.contrib.django.raven_compat',
+
 ]
 
 MIDDLEWARE = [
@@ -168,6 +171,11 @@ LOGGING = {
         }
     },
     'handlers': {
+        'sentry': {
+            'level': 'ERROR',
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+            'filters': ['require_debug_false'],
+        },
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
@@ -182,13 +190,23 @@ LOGGING = {
     },
     'loggers': {
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['sentry', 'console'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'django.template': {
+            'handlers': ['sentry'],
             'level': 'ERROR',
             'propagate': True,
         },
         'django.db.backends': {
-            'handlers': ['console'],
-            'level': 'ERROR',
+            'handlers': ['console', 'sentry'],
+            'level': 'WARNING',
+            'propagate': False,
+        },
+        'django.security.*': {
+            'handlers': ['sentry'],
+            'level': 'WARNING',
             'propagate': False,
         },
         '': {
@@ -227,6 +245,20 @@ AUTHENTICATION_BACKENDS = (
     #'django_python3_ldap.auth.LDAPBackend', #disabled by default, enable if you need an ldap authentifiaction
 )
 
+
+##################
+#   SENTRY.IO    #
+##################
+import raven
+
+# raven is disabled by default
+RAVEN_ENABLED = True  # this flag enables frontend checking
+RAVEN_CONFIG = {}  # empty config, raven init => disabled
+# 'dsn': 'https://e3874384754398573@sentry.io/97895',
+# If you are using git, you can also automatically configure the
+# release based on the git info.
+# 'release': raven.fetch_git_sha(os.path.normpath(os.path.join(os.path.dirname(__file__), "../../"))),
+# }
 
 
 try:
