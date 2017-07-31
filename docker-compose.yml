@@ -13,6 +13,8 @@ web:
   volumes:
     - ./main:/code
     - ./static:/static
+    - ./.git/HEAD:/code/.git/HEAD:ro
+    - ./.git/refs:/code/.git/refs:ro
   expose:
     - "8099"
   links:
