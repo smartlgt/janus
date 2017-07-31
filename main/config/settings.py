@@ -263,5 +263,5 @@ RAVEN_CONFIG = {}  # empty config, raven init => disabled
 
 try:
     from .local_settings import *
-except:
-    print("can't load local_settings.py or an error occurred while loading")
+except ModuleNotFoundError:
+    print("!!! local_settings.py not found !!!")
