@@ -17,6 +17,10 @@ class ProfileView(ProtectedResourceView):
         """
         is_superuser = False
         can_authenticate = False
+
+        if not user.is_authenticated:
+            return is_superuser, can_authenticate
+
         all_groups = Profile.objects.get(user=user).group.all()
 
         # add the default groups by default
@@ -46,6 +50,8 @@ class ProfileView(ProtectedResourceView):
         """
         is_superuser = None
         can_authenticate = None
+        if not user.is_authenticated:
+            return is_superuser, can_authenticate
 
         pp = ProfilePermission.objects.filter(profile__user=user, application=token.application).first()
         if pp:
@@ -63,10 +69,10 @@ class ProfileView(ProtectedResourceView):
             if not token:
                 return self.error_response(OAuthToolkitError("No access token"))
 
-            is_superuser, can_authenticate = self.get_group_permissions(request.user, token)
+            is_superuser, can_authenticate = self.get_group_permissions(token.user, token)
 
             # if set the personal settings overwrite the user settings
-            pp_superuser, pp_authenticate = self.get_personal_permissions(request.user, token)
+            pp_superuser, pp_authenticate = self.get_personal_permissions(token.user, token)
             if pp_superuser is not None:
                 if type(pp_superuser) is bool:
                     is_superuser = pp_superuser
