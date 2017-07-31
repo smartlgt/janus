@@ -5,3 +5,5 @@ whitenoise==3.3.0
 #django_python3_ldap==0.9.13
 raven
 git+https://github.com/etianen/django-python3-ldap.git#egg=django_python3_ldap
+
+psycopg2
