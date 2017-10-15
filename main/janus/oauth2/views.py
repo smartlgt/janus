@@ -42,7 +42,9 @@ class AuthorizationView(AuthorizationView):
         if permitted:
 
             # check if the application needs a valid email address
-            required = application.applicationextension and application.applicationextension.email_required
+            required = False
+            if hasattr(application, 'applicationextension'):
+                required = application.applicationextension and application.applicationextension.email_required
 
             if required:
 
