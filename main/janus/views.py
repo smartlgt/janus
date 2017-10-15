@@ -66,7 +66,13 @@ class ProfileView(ProtectedResourceView):
         if request.resource_owner:
             user = request.resource_owner
 
+
+            set = user.accesstoken_set
             access_token = request.GET.get('access_token', None)
+            if not access_token:
+                access_token = request.META.get('HTTP_AUTHORIZATION', None)
+                if access_token:
+                    access_token = access_token.replace("Bearer ", "")
 
             token = AccessToken.objects.filter(token=access_token).first()
             if not token:
