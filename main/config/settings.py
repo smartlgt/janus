@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     'django_python3_ldap',
 
@@ -39,6 +40,11 @@ INSTALLED_APPS = [
     'janus',
 
     'raven.contrib.django.raven_compat',
+
+
+    'allauth',
+    'allauth.account',
+    #'allauth.socialaccount',
 
 ]
 
@@ -60,6 +66,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
+
+
+SITE_ID = 1
 
 TEMPLATES = [
     {
@@ -260,6 +269,14 @@ RAVEN_CONFIG = {}  # empty config, raven init => disabled
 # 'release': raven.fetch_git_sha(os.path.normpath(os.path.join(os.path.dirname(__file__), "../../"))),
 # }
 
+
+######### Allauth config
+ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_VERIFICATION = "optional"
+ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'restart_authorize'
 
 try:
     from .local_settings import *

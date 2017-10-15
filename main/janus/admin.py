@@ -1,5 +1,8 @@
 from django.contrib import admin
-from janus.models import Profile, ApplicationGroup, ProfilePermission, GroupPermission, ProfileGroup
+from oauth2_provider.admin import Application, ApplicationAdmin
+
+from janus.models import Profile, ApplicationGroup, ProfilePermission, GroupPermission, ProfileGroup, \
+    ApplicationExtension
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
@@ -69,3 +72,23 @@ class GroupPermissionAdmin(admin.ModelAdmin):
     search_fields = ('id', 'profile', 'application',)
 
 admin.site.register(GroupPermission, GroupPermissionAdmin)
+
+############################ Application Admin ##################
+admin.site.unregister(Application)
+
+class ApplicationExtensionInline(admin.StackedInline):
+    model = ApplicationExtension
+
+class ApplicationAdminJanus(ApplicationAdmin):
+    list_display = ApplicationAdmin.list_display + ('email_required',)
+    inlines = (ApplicationExtensionInline,)
+
+    def email_required(self, object):
+        if object.applicationextension:
+            return object.applicationextension.email_required
+        return None
+
+    email_required.boolean = True
+
+
+admin.site.register(Application, ApplicationAdminJanus)

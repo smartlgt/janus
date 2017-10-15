@@ -1,4 +1,5 @@
 from django.http import JsonResponse, HttpResponse
+from django.shortcuts import redirect
 from oauth2_provider.exceptions import OAuthToolkitError
 from oauth2_provider.models import AccessToken
 from oauth2_provider.views import ProtectedResourceView
@@ -107,3 +108,15 @@ def index(request):
 
 def not_authorized(request):
     return HttpResponse("Sorry, you are not authorized to access this application. Contact an admin if you think this is a mistake.")
+
+
+def restart_authorize(request):
+    url = request.session.get('requested_path', None)
+    if url:
+        try:
+            del request.session['requested_path']
+        except KeyError:
+            pass
+        return redirect(url)
+
+    return redirect('/')

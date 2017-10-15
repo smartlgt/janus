@@ -9,3 +9,5 @@ psycopg2
 
 #fix incompatibility with pyasn1>=0.3 and ldap3==2.2.4
 pyasn1==0.2.3
+
+django-allauth==0.32.0
