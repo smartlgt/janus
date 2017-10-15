@@ -37,11 +37,12 @@ INSTALLED_APPS = [
     'oauth2_provider',
     'corsheaders',
 
+    'janus',
+
     'allauth',
     'allauth.account',
-    'allauth.socialaccount',
+    #'allauth.socialaccount',
 
-    'janus',
 ]
 
 MIDDLEWARE = [
@@ -182,9 +183,9 @@ AUTHENTICATION_BACKENDS = (
 
 
 ######### Allauth config
-ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_VERIFICATION = "optional"
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 

@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^o/revoke_token/?$', RevokeTokenView.as_view(), name="revoke-token"),
 
     url(r'^o/profile/?$', views.ProfileView.as_view(), name="profile"),
-    url(r'^o/not_authorized/$', views.not_authorized, name="not-authorized"),
+    url(r'^o/not_authorized/$', views.not_authorized, name="not_authorized"),
 
     url('^accounts/', include('django.contrib.auth.urls')),
     url(r'^', views.index, name='index'),

@@ -74,3 +74,8 @@ class GroupPermission(models.Model):
     # group also work additive, if the profile is in multiple groups, we collect alle the groups and return them
     # the application must deal with inconsistency
     groups = models.ManyToManyField(ApplicationGroup, blank=True,)
+
+
+class ApplicationExtension(models.Model):
+    application = models.OneToOneField(Application)
+    email_required = models.BooleanField(default=False)
