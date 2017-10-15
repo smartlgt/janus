@@ -66,7 +66,9 @@ class ProfileView(ProtectedResourceView):
         if request.resource_owner:
             user = request.resource_owner
 
-            token = AccessToken.objects.filter(token=request.GET['access_token']).first()
+            access_token = request.GET.get('access_token', None)
+
+            token = AccessToken.objects.filter(token=access_token).first()
             if not token:
                 return self.error_response(OAuthToolkitError("No access token"))
 
