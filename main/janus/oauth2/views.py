@@ -1,3 +1,5 @@
+import urllib
+
 import allauth
 from allauth.account.models import EmailAddress
 from allauth.account.utils import send_email_confirmation
@@ -54,10 +56,15 @@ class AuthorizationView(AuthorizationView):
                         return super(AuthorizationView, self).get(request, *args, **kwargs)
                     else:
                         send_email_confirmation(request, request.user)
+                        if request.GET:
+                            params = urllib.parse.urlencode(request.GET)
+                            request.session['requested_path'] = request.path + '?' + params
                         return redirect('account_email_verification_sent')
 
                 else:
-                    #return redirect('no-email')
+                    if request.GET:
+                        params = urllib.parse.urlencode(request.GET)
+                        request.session['requested_path'] = request.path + '?' + params
                     return redirect('account_email')
 
 

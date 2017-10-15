@@ -16,6 +16,8 @@ urlpatterns = [
     url(r'^o/profile/?$', views.ProfileView.as_view(), name="profile"),
     url(r'^o/not_authorized/$', views.not_authorized, name="not_authorized"),
 
+    url(r'^o/restart_authorize/$', views.restart_authorize, name="restart_authorize"),
+
     url('^accounts/', include('django.contrib.auth.urls')),
     url(r'^', views.index, name='index'),
 ]
