@@ -79,3 +79,5 @@ class GroupPermission(models.Model):
 class ApplicationExtension(models.Model):
     application = models.OneToOneField(Application)
     email_required = models.BooleanField(default=False)
+    display_name = models.CharField(max_length=255, null=True, blank=True, default=None)
+    link = models.URLField(default=None, blank=True, null=True)

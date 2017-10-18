@@ -1,5 +1,5 @@
 from django.http import JsonResponse, HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from oauth2_provider.exceptions import OAuthToolkitError
 from oauth2_provider.models import AccessToken
 from oauth2_provider.views import ProtectedResourceView
@@ -108,11 +108,12 @@ class ProfileView(ProtectedResourceView):
 
 
 def index(request):
-    if request.user.is_authenticated:
-        return HttpResponse("hello from janus " + str(request.user))
-    else:
-        return HttpResponse("hello from janus")
 
+    args = {
+    }
+
+
+    return render(request, 'pages/index.html', args)
 
 def not_authorized(request):
     return HttpResponse("Sorry, you are not authorized to access this application. Contact an admin if you think this is a mistake.")

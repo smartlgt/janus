@@ -82,6 +82,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'janus.context_processors.applications',
             ],
         },
     },
@@ -268,7 +269,8 @@ RAVEN_CONFIG = {}  # empty config, raven init => disabled
 # release based on the git info.
 # 'release': raven.fetch_git_sha(os.path.normpath(os.path.join(os.path.dirname(__file__), "../../"))),
 # }
-
+if DEBUG:
+    RAVEN_ENABLED = False
 
 ######### Allauth config
 ACCOUNT_EMAIL_REQUIRED = False
@@ -277,6 +279,8 @@ ACCOUNT_EMAIL_VERIFICATION = "optional"
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'restart_authorize'
+ACCOUNT_LOGOUT_ON_GET = True
+
 
 try:
     from .local_settings import *
