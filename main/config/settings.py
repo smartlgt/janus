@@ -63,6 +63,8 @@ MIDDLEWARE = [
 
     #'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     #'oauth2_provider.middleware.OAuth2TokenMiddleware',
+
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
