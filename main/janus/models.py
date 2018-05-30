@@ -25,7 +25,8 @@ class Profile(models.Model):
         p.save()
 
         default_groups = ProfileGroup.objects.filter(default=True).all()
-        p.group = default_groups
+        if default_groups.exists():
+            p.group.add(default_groups)
 
         p.save()
 
@@ -67,7 +68,7 @@ class GroupPermission(models.Model):
         define default permissions for applications, can be overridden by a entry in the ApplicationPermission model
         additive override for the bool values
     """
-    profile_group = models.ForeignKey(ProfileGroup)
+    profile_group = models.ForeignKey(ProfileGroup, on_delete=models.CASCADE)
     application = models.ForeignKey(Application, on_delete=models.CASCADE)
     can_authenticate = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
@@ -77,7 +78,7 @@ class GroupPermission(models.Model):
 
 
 class ApplicationExtension(models.Model):
-    application = models.OneToOneField(Application)
+    application = models.OneToOneField(Application, on_delete=models.CASCADE)
     email_required = models.BooleanField(default=False)
     display_name = models.CharField(max_length=255, null=True, blank=True, default=None)
     link = models.URLField(default=None, blank=True, null=True)

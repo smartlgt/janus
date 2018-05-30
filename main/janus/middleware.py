@@ -15,7 +15,7 @@ class ProfileMiddleware(object):
         # Code to be executed for each request/response after
         # the view is called.
 
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             if not hasattr(request.user, 'profile'):
                 Profile.create_default_profile(request.user)
 
