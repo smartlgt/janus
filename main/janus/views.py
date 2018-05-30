@@ -67,7 +67,7 @@ class ProfileView(ProtectedResourceView):
             user = request.resource_owner
 
 
-            set = user.accesstoken_set
+            #set = user.accesstoken_set.all()
             access_token = request.GET.get('access_token', None)
             if not access_token:
                 access_token = request.META.get('HTTP_AUTHORIZATION', None)
