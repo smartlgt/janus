@@ -10,6 +10,7 @@ srv = Client(server="localhost", secret=b"changeme", dict=Dictionary("dictionary
 req = srv.CreateAuthPacket(code=pyrad.packet.AccessRequest,
                            User_Name="daniel", NAS_Identifier="localhost")
 req["User-Password"] = req.PwCrypt("sparka")
+#req["User-Password"] = "sparka"
 
 # send request
 reply = srv.SendPacket(req)

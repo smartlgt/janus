@@ -13,6 +13,10 @@ class RadiusServer(server.Server):
         for attr in pkt.keys():
             print("%s: %s" % (attr, pkt[attr]))
 
+            if attr == "User-Password":
+                decrypt = pkt.PwDecrypt(pkt[attr][0])
+                print("%s: %s" % (attr, decrypt))
+
         reply = self.CreateReplyPacket(pkt, **{
             "Service-Type": "Framed-User",
             "Framed-IP-Address": '192.168.0.1',
