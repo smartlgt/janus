@@ -30,6 +30,8 @@ srv = RadiusServer(dict=dictionary.Dictionary("dictionary"))
 
 # add clients (address, secret, name)
 srv.hosts["127.0.0.1"] = server.RemoteHost("127.0.0.1", b"changeme", "localhost")
+srv.hosts["192.168.50.218"] = server.RemoteHost("192.168.50.218", b"abc123", "unifi")
+srv.hosts["*"] = server.RemoteHost("*", b"abc123", "unifs")
 srv.BindToAddress("")
 
 
