@@ -11,3 +11,7 @@ psycopg2
 #pyasn1==0.2.3
 
 django-allauth==0.36.0
+
+
+#radius server
+pyrad
