@@ -1,6 +1,6 @@
 django<3.0
 git+https://github.com/smartlgt/django-janus#egg=janus
-https://github.com/smartlgt/django-fakeinline#egg=django-fakeinline
+git+https://github.com/smartlgt/django-fakeinline#egg=django-fakeinline
 raven
 django-bootstrap4
 psycopg2
