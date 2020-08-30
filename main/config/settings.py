@@ -8,7 +8,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
@@ -30,21 +29,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
-
     'django_python3_ldap',
-
+    'django.contrib.sites',
     'oauth2_provider',
-    'corsheaders',
-
-    'janus',
-
-    'raven.contrib.django.raven_compat',
-
-
     'allauth',
     'allauth.account',
-    #'allauth.socialaccount',
+    'allauth.socialaccount',
+    'janus',
+    'app.apps.AppConfig',
+    'bootstrap4',
 
 ]
 
@@ -56,15 +49,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
     'corsheaders.middleware.CorsMiddleware',
-
     'janus.middleware.ProfileMiddleware',
-
-    #'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    #'oauth2_provider.middleware.OAuth2TokenMiddleware',
-
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -145,22 +131,9 @@ STATIC_URL = '/static/'
 # noinspection PyUnresolvedReferences
 STATIC_ROOT = "/static/"
 
-########################################
-## OAUTH2
-########################################
-
-OAUTH2_PROVIDER_APPLICATION_MODEL = 'oauth2_provider.Application'
-
-OAUTH2_PROVIDER = {
-    #'OAUTH2_VALIDATOR_CLASS': 'janus.oauth2_validators.OAuth2Validator',
-}
-
-CORS_ORIGIN_ALLOW_ALL = False
-
-
-########################################
-## LOGGING
-########################################
+###########
+# LOGGING #
+###########
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
@@ -229,34 +202,28 @@ LOGGING = {
     }
 }
 
-########################################
-## LDAP
-########################################
+##########
+## JANUS #
+##########
 
-# The URL of the LDAP server.
-LDAP_AUTH_URL = "ldap.exmaple.com"
+OAUTH2_PROVIDER_APPLICATION_MODEL = 'oauth2_provider.Application'
 
-# Initiate TLS on connection.
-LDAP_AUTH_USE_TLS = True
+CORS_ORIGIN_ALLOW_ALL = False
 
-# The LDAP search base for looking up users.
-LDAP_AUTH_SEARCH_BASE = "OU=people,DC=example,DC=com"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_VERIFICATION = "optional"
+ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'restart_authorize'
+ACCOUNT_LOGOUT_ON_GET = True
 
-# The LDAP class that represents a user.
-LDAP_AUTH_OBJECT_CLASS = "inetOrgPerson"
-
-# A tuple of django model fields used to uniquely identify a user.
-LDAP_AUTH_USER_LOOKUP_FIELDS = ("username",)
-
-# enable this to set superuser, staff, activ and profile activ by drinks.ldap.sync_user_relations on every login
-LDAP_AUTH_SYNC_PERMISSIONS = False
-
-
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    #'django_python3_ldap.auth.LDAPBackend', #disabled by default, enable if you need an ldap authentifiaction
-)
-
+EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.example.com'
+EMAIL_HOST_USER = 'mail@example.com'
+EMAIL_HOST_PASSWORD = '********'
+EMAIL_PORT = 465
+DEFAULT_FROM_EMAIL = 'name <mail@example.com>'
 
 ##################
 #   SENTRY.IO    #
@@ -273,16 +240,6 @@ RAVEN_CONFIG = {}  # empty config, raven init => disabled
 # }
 if DEBUG:
     RAVEN_ENABLED = False
-
-######### Allauth config
-ACCOUNT_EMAIL_REQUIRED = False
-ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_EMAIL_VERIFICATION = "optional"
-ACCOUNT_AUTHENTICATION_METHOD = "username"
-ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'restart_authorize'
-ACCOUNT_LOGOUT_ON_GET = True
-
 
 try:
     from .local_settings import *
